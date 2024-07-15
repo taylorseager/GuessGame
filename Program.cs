@@ -9,7 +9,7 @@ int userGuess;
 
 bool correctAnswerGuessed = false;
 int maxGuesses = 4;
-int guessCount = 0;
+int guessCount = 1;
 
 while (!correctAnswerGuessed && guessCount < maxGuesses)
 {
@@ -29,7 +29,7 @@ while (!correctAnswerGuessed && guessCount < maxGuesses)
         Console.WriteLine("You lose. You guessed wrong!");
     }
 
-    guessCount++;
+    Console.WriteLine($"Your guess count: {guessCount++}");
 }
 
 static int GenerateRandomNumber(int min, int max)
