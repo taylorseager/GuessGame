@@ -13,12 +13,10 @@ if (!int.TryParse(Console.ReadLine().Trim(), out userGuess))
 }
 else if (secretNumber == userGuess)
 {
-    Console.WriteLine($"You guessed: {userGuess}");
     Console.WriteLine("Congrats! You guessed the secret number!");
 }
 else
 {
-    Console.WriteLine($"You guessed: {userGuess}");
     Console.WriteLine("You lose. You guessed wrong!");
 }
 
