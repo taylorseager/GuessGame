@@ -4,6 +4,38 @@ string greeting = @"Welcome to the Amazing Guessing Game!
 You get 4 guesses! Choose wisely.";
 Console.WriteLine(greeting);
 
+string choice = null;
+while (choice != "0")
+{
+    Console.WriteLine(@"Choose a difficulty level:
+                        0. Exit
+                        1. Easy - 8 guesses
+                        2. Medium - 6 guesses
+                        3. Hard - 4 guesses");
+
+    choice = Console.ReadLine();
+    if (choice == "0")
+    {
+        Console.WriteLine("Come back after your confidence is rebuilt.");
+    }
+    else if (choice == "1")
+    {
+        EasyDifficulty();
+    }
+    else if (choice == "2")
+    {
+        MediumDifficulty();
+    }
+    else if (choice == "3")
+    {
+        HardDifficulty();
+    }
+    else
+    {
+        Console.WriteLine("Invalid Choice. Try again!");
+    }
+}
+
 int secretNumber = GenerateRandomNumber(1, 10);
 int userGuess;
 
@@ -42,6 +74,21 @@ while (!correctAnswerGuessed && guessCount < maxGuesses)
         correctAnswerGuessed = false;
 
     }
+}
+
+void EasyDifficulty()
+{
+    Console.WriteLine();
+}
+
+void MediumDifficulty()
+{
+    Console.WriteLine();
+}
+
+void HardDifficulty()
+{
+    Console.WriteLine();
 }
 
 
