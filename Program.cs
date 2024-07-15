@@ -4,16 +4,20 @@ string greeting = @"Welcome to the Amazing Guessing Game!
 You get 4 guesses! Choose wisely.";
 Console.WriteLine(greeting);
 
-int secretNumber = GenerateRandomNumber(1, 10);
+int secretNumber = GenerateRandomNumber(1, 100);
 int userGuess;
 
 bool correctAnswerGuessed = false;
 int maxGuesses = 4;
-int guessCount = 1;
+int guessCount = 0;
+
 
 while (!correctAnswerGuessed && guessCount < maxGuesses)
 {
-    Console.WriteLine("Please try to guess the secret number:");
+    int guessesLeft = maxGuesses - guessCount;
+    Console.WriteLine(@$"Please try to guess the secret number.
+    Your guess count: {guessCount++}
+    You have {guessesLeft} guessess remaining");
 
     if (!int.TryParse(Console.ReadLine().Trim(), out userGuess))
     {
@@ -28,8 +32,6 @@ while (!correctAnswerGuessed && guessCount < maxGuesses)
     {
         Console.WriteLine("You lose. You guessed wrong!");
     }
-
-    Console.WriteLine($"Your guess count: {guessCount++}");
 }
 
 static int GenerateRandomNumber(int min, int max)
