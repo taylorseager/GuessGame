@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 string greeting = @"Welcome to the Amazing Guessing Game!
-You get 4 guesses! Choose wisely.";
+Please try to guess the secret number.";
 Console.WriteLine(greeting);
 
 string choice = null;
@@ -11,7 +11,8 @@ while (choice != "0")
                         0. Exit
                         1. Easy - 8 guesses
                         2. Medium - 6 guesses
-                        3. Hard - 4 guesses");
+                        3. Hard - 4 guesses
+                        4. Cheater Mode");
 
     choice = Console.ReadLine();
     if (choice == "0")
@@ -30,6 +31,10 @@ while (choice != "0")
     {
         GuessingGame("hard");
     }
+    else if (choice == "4")
+    {
+        GuessingGame("cheater");
+    }
     else
     {
         Console.WriteLine("Invalid Choice. Try again!");
@@ -42,7 +47,7 @@ void GuessingGame(string difficulty)
     int userGuess;
 
     bool correctAnswerGuessed = false;
-    int maxGuesses = 8;
+    int maxGuesses = 0;
     int guessCount = 0;
 
     if (difficulty == "hard")
@@ -53,13 +58,26 @@ void GuessingGame(string difficulty)
     {
         maxGuesses = 6;
     }
+    else if (difficulty == "easy")
+    {
+        maxGuesses = 8;
+    }
 
-    while (!correctAnswerGuessed && guessCount < maxGuesses)
+
+        while (!correctAnswerGuessed && (difficulty == "cheater" || guessCount < maxGuesses))
     {
         int guessesLeft = maxGuesses - guessCount;
-        Console.WriteLine(@$"Please try to guess the secret number.
-        Your guess count: {guessCount++}
-        You have {guessesLeft} guessess remaining");
+        if (difficulty == "cheater")
+        {
+            Console.WriteLine($"Your guess count: {guessCount++}");
+            maxGuesses = maxGuesses+1;
+        }
+        else
+        {
+        Console.WriteLine(@$"Your guess count: {guessCount++}
+        You have {guessesLeft} guesses remaining");
+        }
+       
 
         if (!int.TryParse(Console.ReadLine().Trim(), out userGuess))
         {
@@ -69,7 +87,7 @@ void GuessingGame(string difficulty)
         {
             Console.WriteLine("Guess too high. Try again.");
         }
-        else if (userGuess < secretNumber && guessesLeft > 1)
+        else if (userGuess < secretNumber)
         {
             Console.WriteLine("Guess too low. Try again.");
         }
@@ -78,12 +96,11 @@ void GuessingGame(string difficulty)
             Console.WriteLine("Congrats! You guessed the right number!");
             correctAnswerGuessed = true;
         }
-        else
-        {
-            Console.WriteLine("You lose. You guessed wrong!");
-            correctAnswerGuessed = false;
+    }
 
-        }
+    if (!correctAnswerGuessed && difficulty != "cheater")
+    {
+        Console.WriteLine("You lose. You guessed wrong!");
     }
 }
 
