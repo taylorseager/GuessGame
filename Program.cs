@@ -20,15 +20,15 @@ while (choice != "0")
     }
     else if (choice == "1")
     {
-        EasyDifficulty();
+        GuessingGame("easy");
     }
     else if (choice == "2")
     {
-        MediumDifficulty();
+        GuessingGame("medium");
     }
     else if (choice == "3")
     {
-        HardDifficulty();
+        GuessingGame("hard");
     }
     else
     {
@@ -36,61 +36,56 @@ while (choice != "0")
     }
 }
 
-int secretNumber = GenerateRandomNumber(1, 10);
-int userGuess;
-
-bool correctAnswerGuessed = false;
-int maxGuesses = 4;
-int guessCount = 0;
-
-
-while (!correctAnswerGuessed && guessCount < maxGuesses)
+void GuessingGame(string difficulty)
 {
-    int guessesLeft = maxGuesses - guessCount;
-    Console.WriteLine(@$"Please try to guess the secret number.
-    Your guess count: {guessCount++}
-    You have {guessesLeft} guessess remaining");
+    int secretNumber = GenerateRandomNumber(1, 100);
+    int userGuess;
 
-    if (!int.TryParse(Console.ReadLine().Trim(), out userGuess))
-    {
-        Console.WriteLine("Please enter valid input");
-    }
-    else if (userGuess > secretNumber)
-    {
-        Console.WriteLine("Guess too high. Try again.");
-    }
-    else if (userGuess < secretNumber && guessesLeft > 1)
-    {
-        Console.WriteLine("Guess too low. Try again.");
-    }
-    else if (secretNumber == userGuess)
-    {
-        Console.WriteLine("Congrats! You guessed the right number!");
-        correctAnswerGuessed = true;
-    }
-    else
-    {
-        Console.WriteLine("You lose. You guessed wrong!");
-        correctAnswerGuessed = false;
+    bool correctAnswerGuessed = false;
+    int maxGuesses = 8;
+    int guessCount = 0;
 
+    if (difficulty == "hard")
+    {
+        maxGuesses = 4;
+    }
+    else if (difficulty == "medium")
+    {
+        maxGuesses = 6;
+    }
+
+    while (!correctAnswerGuessed && guessCount < maxGuesses)
+    {
+        int guessesLeft = maxGuesses - guessCount;
+        Console.WriteLine(@$"Please try to guess the secret number.
+        Your guess count: {guessCount++}
+        You have {guessesLeft} guessess remaining");
+
+        if (!int.TryParse(Console.ReadLine().Trim(), out userGuess))
+        {
+            Console.WriteLine("Please enter valid input");
+        }
+        else if (userGuess > secretNumber)
+        {
+            Console.WriteLine("Guess too high. Try again.");
+        }
+        else if (userGuess < secretNumber && guessesLeft > 1)
+        {
+            Console.WriteLine("Guess too low. Try again.");
+        }
+        else if (secretNumber == userGuess)
+        {
+            Console.WriteLine("Congrats! You guessed the right number!");
+            correctAnswerGuessed = true;
+        }
+        else
+        {
+            Console.WriteLine("You lose. You guessed wrong!");
+            correctAnswerGuessed = false;
+
+        }
     }
 }
-
-void EasyDifficulty()
-{
-    Console.WriteLine();
-}
-
-void MediumDifficulty()
-{
-    Console.WriteLine();
-}
-
-void HardDifficulty()
-{
-    Console.WriteLine();
-}
-
 
 static int GenerateRandomNumber(int min, int max)
 {
